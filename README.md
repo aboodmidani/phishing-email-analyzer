@@ -1,44 +1,41 @@
-# 🛡️ Cybersecurity Tool
+# 🛡️ Cybersecurity Tools
 
 This repository contains two cybersecurity tools:
 
-1. **Metadata Image Remover** - A Python tool that removes metadata from images to enhance privacy.
+**Phishing Email Analyzer** - A tool that analyzes email headers and content to detect potential phishing attempts.
 
 ---
 
-## 🖼️ Metadata Image Remover
+## 📧 Phishing Email Analyzer
 
 ### 📌 About
-Metadata Image Remover is a Python script that removes EXIF metadata from images to protect privacy. This metadata may contain sensitive information like GPS location, camera details, and timestamps.
+Phishing Email Analyzer helps detect phishing emails by analyzing their metadata and content. It scans for suspicious links, domain mismatches, and common phishing keywords.
 
 ### 🚀 Features
-✅ Removes all EXIF metadata from JPEG and PNG images  
-✅ Supports batch processing of multiple images  
-✅ Provides a clean version of the image without compromising quality  
+✅ Analyzes email headers and extracts metadata  
+✅ Detects suspicious links and phishing keywords  
+✅ Calculates a risk score and categorizes emails as Low, Medium, or High risk  
 
 ### 🔧 Installation
-Ensure you have **Python 3+** installed, then install dependencies:
-
+Install required dependencies:
 ```sh
-pip install pillow
+pip install streamlit
 ```
 
 ### ▶️ Usage
-Run the script with:
+Run the Streamlit app:
 ```sh
-python metadata_remover.py <input_image> <output_image>
+streamlit run phishing_analyzer.py
 ```
 
-Example:
-```sh
-python metadata_remover.py image.jpg clean_image.jpg
-```
+Upload an **.eml** file to analyze phishing risks.
 
 ### 🛠️ How It Works
-- Reads the image and extracts metadata.
-- Saves the image without metadata while preserving its quality.
+- Extracts email headers (From, Return-Path, etc.).
+- Analyzes email body content for suspicious words and links.
+- Assigns a risk score and provides a security recommendation.
 
-
+---
 
 ## 🔗 Contributing
 Feel free to submit **issues** or **pull requests** if you'd like to improve these tools!
