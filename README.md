@@ -4,6 +4,8 @@ This repository contains two cybersecurity tools:
 
 **Phishing Email Analyzer** - A tool that analyzes email headers and content to detect potential phishing attempts.
 
+Demo: https://phishing-email-analyzer.streamlit.app/
+
 ---
 
 ## 📧 Phishing Email Analyzer
