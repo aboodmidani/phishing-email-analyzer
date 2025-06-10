@@ -44,3 +44,7 @@ Feel free to submit **issues** or **pull requests** if you'd like to improve the
 
 ## 📜 License
 This project is licensed under the **MIT License**.
+
+![Screenshot_10-6-2025_23131_phishing-email-analyzer streamlit app](https://github.com/user-attachments/assets/530300b9-02c9-4f9c-8a5a-9bae3c4f1d26)
+
+
