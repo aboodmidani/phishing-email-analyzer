@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing Email Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <h1>Phishing Email Analyzer</h1>
+            </div>
+            <p class="subtitle">Analyze .eml files for phishing indicators with AI-powered detection</p>
+            <div class="api-status" id="apiStatus">
+                <span class="status-indicator"></span>
+                <span class="status-text">Checking AI status...</span>
+            </div>
+        </header>
+
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <div class="upload-zone" id="uploadZone">
+                <input type="file" id="fileInput" accept=".eml" hidden>
+                <div class="upload-content" id="uploadContent">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Drop your .eml file here</h3>
+                    <p>or click to browse</p>
+                </div>
+                <div class="file-info" id="fileInfo" style="display: none;">
+                    <i class="fas fa-file-code"></i>
+                    <span id="fileName"></span>
+                    <button class="btn-remove" id="removeFile"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <button class="btn-analyze" id="analyzeBtn" disabled>
+                <i class="fas fa-search"></i> Analyze Email
+            </button>
+        </section>
+
+        <!-- Loading State -->
+        <div class="loading" id="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Analyzing email...</p>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-message" id="errorMessage" style="display: none;">
+            <i class="fas fa-exclamation-circle"></i>
+            <span id="errorText"></span>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results" id="results" style="display: none;">
+            <!-- Risk Score Dashboard -->
+            <section class="risk-dashboard">
+                <div class="risk-gauge">
+                    <div class="gauge-circle" id="gaugeCircle">
+                        <div class="gauge-value" id="riskScore">0</div>
+                    </div>
+                    <div class="risk-badge" id="riskBadge">Low</div>
+                </div>
+                <div class="risk-details">
+                    <h3>AI Analysis Summary</h3>
+                    <p id="aiSummary"></p>
+                    <div class="analysis-method">
+                        <span id="analysisMethod"></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Indicators & Recommendations -->
+            <div class="indicators-grid">
+                <section class="card">
+                    <div class="card-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h2>Indicators</h2>
+                    </div>
+                    <div class="card-body">
+                        <ul class="indicator-list" id="indicatorList"></ul>
+                    </div>
+                </section>
+                <section class="card">
+                    <div class="card-header">
+                        <i class="fas fa-lightbulb"></i>
+                        <h2>Recommendations</h2>
+                    </div>
+                    <div class="card-body">
+                        <ul class="recommendation-list" id="recommendationList"></ul>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Basic Info Card -->
+            <section class="card">
+                <div class="card-header">
+                    <i class="fas fa-envelope"></i>
+                    <h2>Email Overview</h2>
+                </div>
+                <div class="card-body">
+                    <table class="info-table" id="basicInfoTable">
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Authentication Results -->
+            <section class="card">
+                <div class="card-header">
+                    <i class="fas fa-lock"></i>
+                    <h2>Authentication Results</h2>
+                </div>
+                <div class="card-body">
+                    <div class="auth-badges" id="authBadges">
+                        <div class="auth-item" id="spfBadge">
+                            <span class="auth-label">SPF</span>
+                            <span class="auth-status">Unknown</span>
+                        </div>
+                        <div class="auth-item" id="dkimBadge">
+                            <span class="auth-label">DKIM</span>
+                            <span class="auth-status">Unknown</span>
+                        </div>
+                        <div class="auth-item" id="dmarcBadge">
+                            <span class="auth-label">DMARC</span>
+                            <span class="auth-status">Unknown</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Received Chain -->
+            <section class="card">
+                <div class="card-header collapsible" data-target="receivedChain">
+                    <i class="fas fa-route"></i>
+                    <h2>Received Chain (Routing Path)</h2>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="card-body collapsible-content" id="receivedChain">
+                    <div class="received-chain" id="receivedChainContent"></div>
+                </div>
+            </section>
+
+            <!-- All Headers -->
+            <section class="card">
+                <div class="card-header collapsible" data-target="allHeaders">
+                    <i class="fas fa-list-alt"></i>
+                    <h2>All Headers</h2>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="card-body collapsible-content collapsed" id="allHeaders">
+                    <table class="headers-table" id="headersTable">
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Links -->
+            <section class="card">
+                <div class="card-header">
+                    <i class="fas fa-link"></i>
+                    <h2>Extracted Links (<span id="linkCount">0</span>)</h2>
+                </div>
+                <div class="card-body">
+                    <div class="links-container" id="linksContainer"></div>
+                </div>
+            </section>
+
+            <!-- Attachments -->
+            <section class="card" id="attachmentsSection" style="display: none;">
+                <div class="card-header">
+                    <i class="fas fa-paperclip"></i>
+                    <h2>Attachments (<span id="attachmentCount">0</span>)</h2>
+                </div>
+                <div class="card-body">
+                    <div class="attachments-container" id="attachmentsContainer"></div>
+                </div>
+            </section>
+
+            <!-- Email Body -->
+            <section class="card">
+                <div class="card-header">
+                    <i class="fas fa-file-alt"></i>
+                    <h2>Email Body</h2>
+                    <div class="body-toggle">
+                        <button class="toggle-btn active" id="plainTextBtn">Plain Text</button>
+                        <button class="toggle-btn" id="htmlBtn">HTML</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="body-content" id="bodyContent">
+                        <div class="plain-text-body" id="plainTextBody"></div>
+                        <div class="html-body" id="htmlBody" style="display: none;"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
