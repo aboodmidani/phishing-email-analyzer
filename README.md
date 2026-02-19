@@ -37,6 +37,18 @@ cd phishing-email-analyzer
 pip install -r requirements.txt
 ```
 
+> **Note for Linux users:** The `python-magic` library requires `libmagic`:
+> ```bash
+> sudo apt-get install libmagic1  # Debian/Ubuntu
+> sudo dnf install file-devel     # Fedora
+> sudo pacman -S file             # Arch Linux
+> ```
+>
+> **Note for macOS users:**
+> ```bash
+> brew install libmagic
+> ```
+
 3. Set your API key (choose one):
 ```bash
 # Option 1: OpenRouter (recommended - has free tier)
@@ -153,6 +165,19 @@ phishing-email-analyzer/
 
 ## 🔒 Security Features
 
+### File Upload Security
+
+The application implements multiple layers of security to prevent malicious file uploads:
+
+- **Filename Sanitization** - Removes path traversal characters, null bytes, and dangerous characters
+- **Extension Validation** - Only `.eml` files are accepted
+- **MIME Type Detection** - Uses magic bytes to verify actual file type
+- **Executable Detection** - Blocks files starting with executable signatures (PE, ELF, Java, ZIP, RAR)
+- **Email Structure Validation** - Verifies file contains valid email headers and can be parsed
+- **File Size Limits** - Minimum 100 bytes, maximum 10MB
+
+### Phishing Detection
+
 The analyzer checks for multiple phishing indicators:
 
 ### Email Authentication
@@ -175,6 +200,11 @@ The analyzer checks for multiple phishing indicators:
 - Phishing keywords in subject
 - Domain mismatch detection
 - Reply-To vs From domain comparison
+
+### AI Analysis
+- Consistent scoring with strict rubric (temperature=0, fixed seed)
+- 10-category phishing indicator checklist
+- Risk levels: Low (0-25), Medium (26-50), High (51-75), Critical (76-100)
 
 ## 🤝 Contributing
 
