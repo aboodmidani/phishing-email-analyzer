@@ -3,7 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phishing Email Analyzer</title>
+    <title>Phishing Email Analyzer - AI-Powered Email Security Tool</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='email.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='email.png') }}">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Free AI-powered phishing email analyzer. Upload .eml files to detect phishing indicators, verify email authentication (SPF, DKIM, DMARC), and get actionable security recommendations.">
+    <meta name="keywords" content="phishing detector, email analyzer, email security, phishing detection, spam analyzer, eml analyzer, email authentication, SPF, DKIM, DMARC, cybersecurity, email security tool">
+    <meta name="author" content="Phishing Email Analyzer">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://phishing-email-analyzer.onrender.com/">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Phishing Email Analyzer - AI-Powered Email Security Tool">
+    <meta property="og:description" content="Free AI-powered phishing email analyzer. Detect phishing indicators, verify email authentication, and protect yourself from email scams.">
+    <meta property="og:image" content="{{ url_for('static', filename='email.png', _external=True) }}">
+    <meta property="og:url" content="https://phishing-email-analyzer.onrender.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Phishing Email Analyzer">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Phishing Email Analyzer - AI-Powered Email Security Tool">
+    <meta name="twitter:description" content="Free AI-powered phishing email analyzer. Detect phishing indicators and protect yourself from email scams.">
+    <meta name="twitter:image" content="{{ url_for('static', filename='email.png', _external=True) }}">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#1a1a2e">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
