@@ -6,6 +6,8 @@ A comprehensive .eml file analyzer with AI-powered risk scoring. Built with Flas
 ![Flask](https://img.shields.io/badge/Flask-2.3+-green.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
+Demo: https://phishing-email-analyzer-jyjj.onrender.com/
+
 ## ✨ Features
 
 - **📧 Full EML Parsing** - Extracts all email headers, body content, and attachments
